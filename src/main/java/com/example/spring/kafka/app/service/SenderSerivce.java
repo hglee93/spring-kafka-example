@@ -24,7 +24,8 @@ public class SenderSerivce {
     }
 
     public void sendToKafka(String topic, String message) {
-        JoinEvent joinEvent = new JoinEvent(message);
+        JoinEvent joinEvent = new JoinEvent();
+        joinEvent.setMessage(message);
         ListenableFuture<SendResult<String, JoinEvent>> future = kafkaTemplate.send(topic, joinEvent);
         future.addCallback(new KafkaSendCallback<String, JoinEvent>() {
 
